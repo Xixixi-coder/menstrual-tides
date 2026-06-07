@@ -1,0 +1,37 @@
+<view class="container">
+  <!-- Canvas Wave -->
+  <canvas id="tideCanvas" type="2d" class="tide-canvas"
+    style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;"></canvas>
+
+  <!-- Moon Phase -->
+  <view class="moon-area">
+    <text class="moon-icon">{{moonIcon}}</text>
+    <text class="moon-label">{{moonName}}</text>
+  </view>
+
+  <!-- Cycle Info -->
+  <view class="phase-area" wx:if="{{cycleDay}}">
+    <text class="phase-today">今天：{{phaseAlias}} · 「{{phaseName}}」</text>
+    <text class="phase-poem">{{bodyPoem}}</text>
+  </view>
+
+  <!-- Bottom Actions -->
+  <view class="bottom-actions">
+    <button class="mark-btn" bindtap="goToMark">
+      <text class="wave-icon">~</text> 标记今天的颜色
+    </button>
+    <text class="cycle-label" wx:if="{{cycleDay}}">第 {{cycleDay}} 天</text>
+  </view>
+
+  <!-- Setup Overlay -->
+  <view class="setup-overlay" wx:if="{{showSetup}}">
+    <view class="setup-card">
+      <text class="setup-title">你的上一次月经是什么时候开始的？</text>
+      <text class="setup-sub">这将帮助我们为你生成个人潮汐色谱</text>
+      <picker mode="date" bindchange="onSetupConfirm">
+        <view class="setup-date-btn">选择日期</view>
+      </picker>
+      <button class="setup-skip-btn" bindtap="onSetupSkip">暂时跳过</button>
+    </view>
+  </view>
+</view>

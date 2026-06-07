@@ -1,0 +1,32 @@
+<view class="container">
+  <text class="title">设置</text>
+
+  <view class="section">
+    <text class="section-title">周期长度</text>
+    <view class="row">
+      <slider min="21" max="35" value="{{cycleLength}}" show-value
+        activeColor="#1E3A5F" backgroundColor="rgba(192,197,206,0.15)"
+        bindchange="onLengthChange" />
+    </view>
+    <text class="hint">当前：{{cycleLength}} 天（可调 21-35 天）</text>
+  </view>
+
+  <view class="section">
+    <text class="section-title">周期数据</text>
+    <view class="info-row">
+      <text class="info-label">上次经期</text>
+      <text class="info-value">{{lastPeriodStart}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">已标记</text>
+      <text class="info-value">{{markCount}} 天</text>
+    </view>
+  </view>
+
+  <button class="reset-btn" bindtap="onResetDate">管理数据</button>
+
+  <view class="footer">
+    <text class="footer-text">「原来我不是情绪不稳定，是激素在写诗」</text>
+    <text class="footer-sub">月经潮汐 · 身体的自然节律</text>
+  </view>
+</view>

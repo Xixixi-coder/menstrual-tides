@@ -1,0 +1,23 @@
+<view class="container" bindtouchstart="touchStart" bindtouchend="touchEnd">
+  <text class="label">滑动探索 28 天的自己</text>
+
+  <view class="track">
+    <view wx:for="{{days}}" wx:key="day"
+      class="dot {{currentDay === item.day ? 'active' : ''}}"
+      style="background:{{item.color}}"
+      data-day="{{item.day}}" bindtap="onDayTap"></view>
+  </view>
+
+  <view class="day-info">
+    <text class="day-num" style="color:{{phaseColor}}">第 {{currentDay}} 天</text>
+    <text class="phase-name">{{phaseAlias}} · {{phaseName}}</text>
+  </view>
+
+  <text class="poem">{{bodyPoem}}</text>
+
+  <view class="nav">
+    <view class="nav-btn {{currentDay <= 1 ? 'disabled' : ''}}" bindtap="onPrev">←</view>
+    <text class="progress">{{currentDay}} / 28</text>
+    <view class="nav-btn {{currentDay >= 28 ? 'disabled' : ''}}" bindtap="onNext">→</view>
+  </view>
+</view>

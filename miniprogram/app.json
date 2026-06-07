@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/mark/mark",
+    "pages/spectrum/spectrum",
+    "pages/settings/settings"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#0A1628",
+    "navigationBarTitleText": "月经潮汐",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0A1628",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#7B6D8D",
+    "selectedColor": "#F5F5F0",
+    "backgroundColor": "#0A1628",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "潮汐"
+      },
+      {
+        "pagePath": "pages/mark/mark",
+        "text": "标记"
+      },
+      {
+        "pagePath": "pages/spectrum/spectrum",
+        "text": "色谱"
+      },
+      {
+        "pagePath": "pages/settings/settings",
+        "text": "设置"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}
