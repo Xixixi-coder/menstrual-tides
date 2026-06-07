@@ -1,7 +1,7 @@
 const app = getApp();
 const { getPhaseByDay } = require('../../utils/cycle');
 
-const EMOTIONS = ['平静', '疲惫', '疼痛', '自由', '敏感', '有力'];
+const EMOTIONS = ['平静', '疲惫', '疼痛', '自由', '敏感', '有力', '焦虑', '柔软'];
 
 Page({
   data: {

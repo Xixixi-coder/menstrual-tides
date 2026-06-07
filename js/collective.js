@@ -47,20 +47,29 @@ export class CollectiveTide {
   }
 
   generateStats() {
-    const countEl = this.container.querySelector('.collective-count');
-    const subtitleEl = this.container.querySelector('.collective-subtitle');
+    const countEl = this.container.querySelector('#collective-count-num');
+    const countLine = this.container.querySelector('#collective-count-line');
+    const titleEl = this.container.querySelector('#collective-title');
+    const subtitleEl = this.container.querySelector('#collective-subtitle');
+    const firstPrompt = this.container.querySelector('#collective-first');
     if (!countEl) return;
 
     const marks = this.getLocalMarkCount();
-    this.animateCount(countEl, marks);
 
-    if (subtitleEl) {
-      if (marks === 0) {
-        subtitleEl.textContent = '标记今天的颜色，成为潮汐的一部分';
-      } else if (marks < 5) {
-        subtitleEl.textContent = '在这片潮汐中留下了颜色';
-      } else {
-        subtitleEl.textContent = '天的情绪，汇成了这片潮汐';
+    if (marks === 0) {
+      if (countLine) countLine.classList.add('hidden');
+      if (titleEl) titleEl.classList.add('hidden');
+      if (firstPrompt) firstPrompt.classList.remove('hidden');
+      if (subtitleEl) subtitleEl.textContent = '标记今天的颜色，成为潮汐的一部分';
+    } else {
+      if (countLine) countLine.classList.remove('hidden');
+      if (titleEl) titleEl.classList.remove('hidden');
+      if (firstPrompt) firstPrompt.classList.add('hidden');
+      this.animateCount(countEl, marks);
+      if (subtitleEl) {
+        subtitleEl.textContent = marks < 5
+          ? '在这片潮汐中留下了颜色'
+          : `${marks} 天的情绪，汇成了这片潮汐`;
       }
     }
   }

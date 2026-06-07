@@ -1,4 +1,4 @@
-const { getPhaseByDay, getCycleColorForDay, getBodyPoem, getAllPhases } = require('../../utils/cycle');
+const { getPhaseByDay, getCycleColorForDay, getBodyPoem, getDayContent, getAllPhases } = require('../../utils/cycle');
 
 Page({
   data: {
@@ -7,6 +7,8 @@ Page({
     phaseAlias: '',
     phaseColor: '',
     bodyPoem: '',
+    bodyTip: '',
+    bodyMood: '',
     days: [],
   },
 
@@ -30,13 +32,15 @@ Page({
   goTo(day) {
     day = Math.max(1, Math.min(28, day));
     const phase = getPhaseByDay(day);
-    const poem = getBodyPoem(day);
+    const content = getDayContent(day);
     this.setData({
       currentDay: day,
       phaseName: phase.name,
       phaseAlias: phase.alias,
       phaseColor: phase.color,
-      bodyPoem: poem.text,
+      bodyPoem: content.poetic,
+      bodyTip: content.tip,
+      bodyMood: content.mood,
     });
   },
 

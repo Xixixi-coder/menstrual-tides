@@ -1,5 +1,5 @@
 import { getPhaseByDay, getCycleColorForDay, getAllPhases } from './cycle.js';
-import { getBodyPoem } from './body-poems.js';
+import { getBodyPoem, getDayContent } from './body-poems.js';
 
 export class SpectrumExplorer {
   constructor(container, waveEngine) {
@@ -63,14 +63,14 @@ export class SpectrumExplorer {
   render() {
     const day = this.currentDay;
     const phase = getPhaseByDay(day);
-    const poem = getBodyPoem(day);
+    const content = getDayContent(day);
     const color = getCycleColorForDay(day, 28);
     const rgb = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 
-    const content = this.container.querySelector('.spectrum-content');
-    if (!content) return;
+    const el = this.container.querySelector('.spectrum-content');
+    if (!el) return;
 
-    content.innerHTML = `
+    el.innerHTML = `
       <button class="spectrum-close">&times;</button>
       <p class="spectrum-label">滑动探索 28 天的自己</p>
       <div class="spectrum-track">
@@ -80,7 +80,11 @@ export class SpectrumExplorer {
         <span class="spectrum-day-num">第 ${day} 天</span>
         <span class="spectrum-phase">${phase.alias} · ${phase.name}</span>
       </div>
-      <p class="spectrum-poem">${poem.text}</p>
+      <p class="spectrum-poem">${content.poetic}</p>
+      <div class="spectrum-tips">
+        <p class="spectrum-tip"><span class="spectrum-tip-tag">身体</span>${content.tip}</p>
+        <p class="spectrum-tip"><span class="spectrum-tip-tag">心情</span>${content.mood}</p>
+      </div>
       <div class="spectrum-nav">
         <button class="spectrum-prev" ${day <= 1 ? 'disabled' : ''}>←</button>
         <span class="spectrum-progress">${day} / 28</span>
@@ -89,22 +93,22 @@ export class SpectrumExplorer {
       <button class="spectrum-done">生成我的色谱海报</button>
     `;
 
-    const closeBtn = content.querySelector('.spectrum-close');
+    const closeBtn = el.querySelector('.spectrum-close');
     closeBtn.addEventListener('click', () => this.close());
 
-    const prevBtn = content.querySelector('.spectrum-prev');
-    const nextBtn = content.querySelector('.spectrum-next');
+    const prevBtn = el.querySelector('.spectrum-prev');
+    const nextBtn = el.querySelector('.spectrum-next');
     prevBtn.addEventListener('click', () => this.goTo(day - 1));
     nextBtn.addEventListener('click', () => this.goTo(day + 1));
 
-    const doneBtn = content.querySelector('.spectrum-done');
+    const doneBtn = el.querySelector('.spectrum-done');
     doneBtn.addEventListener('click', () => {
       this.close();
       const posterBtn = document.getElementById('poster-btn');
       if (posterBtn) posterBtn.click();
     });
 
-    const trackNodes = content.querySelectorAll('.spectrum-node');
+    const trackNodes = el.querySelectorAll('.spectrum-node');
     trackNodes.forEach(node => {
       node.addEventListener('click', () => {
         const d = parseInt(node.dataset.day, 10);

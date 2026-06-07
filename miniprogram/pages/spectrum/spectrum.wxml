@@ -15,6 +15,17 @@
 
   <text class="poem">{{bodyPoem}}</text>
 
+  <view class="tips-section">
+    <view class="tip-row">
+      <text class="tip-tag">身体</text>
+      <text class="tip-text">{{bodyTip}}</text>
+    </view>
+    <view class="tip-row">
+      <text class="tip-tag">心情</text>
+      <text class="tip-text">{{bodyMood}}</text>
+    </view>
+  </view>
+
   <view class="nav">
     <view class="nav-btn {{currentDay <= 1 ? 'disabled' : ''}}" bindtap="onPrev">←</view>
     <text class="progress">{{currentDay}} / 28</text>

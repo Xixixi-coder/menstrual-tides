@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#0A1628">
+  <meta name="theme-color" content="#000000">
   <title>月经潮汐</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -20,8 +20,19 @@
   <!-- Personal Cycle Line -->
   <div id="cycle-line-container" class="overlay cycle-area"></div>
 
-  <!-- Phase Description -->
-  <div id="phase-description" class="overlay phase-desc" style="display:none"></div>
+  <!-- Phase Description + Tips (integrated flow) -->
+  <div id="phase-description" class="overlay phase-desc" style="display:none">
+    <!-- phase-today + phase-body injected by JS -->
+    <div class="phase-tips-inline hidden" id="tips-inline">
+      <div class="tips-divider"></div>
+      <div class="tips-inline-header">
+        <span class="tips-inline-icon">💡</span>
+        <span class="tips-inline-label">今日贴士</span>
+      </div>
+      <p class="tips-inline-body" id="tips-body"></p>
+      <p class="tips-inline-mood" id="tips-mood"></p>
+    </div>
+  </div>
 
   <!-- Narrative Card -->
   <div id="narrative-card" class="overlay">
@@ -35,7 +46,7 @@
   <!-- Bottom Bar -->
   <div class="bottom-bar overlay">
     <button id="mark-btn">
-      <span class="mark-wave">~</span> 标记今天的颜色
+      <span class="mark-wave">~</span> 记录今日状态
     </button>
     <button id="spectrum-btn" class="spectrum-trigger">体验 28 天色谱</button>
     <span id="mark-counter" class="mark-counter hidden"></span>
@@ -43,7 +54,7 @@
 
   <!-- Mark Popup -->
   <div id="mark-popup" class="overlay hidden">
-    <div class="mark-header">今天的身体感觉：</div>
+    <div class="mark-header">记录今天的身体感觉：</div>
     <div class="mark-tags">
       <button class="tag" data-emotion="平静">平静</button>
       <button class="tag" data-emotion="疲惫">疲惫</button>
@@ -51,6 +62,8 @@
       <button class="tag" data-emotion="自由">自由</button>
       <button class="tag" data-emotion="敏感">敏感</button>
       <button class="tag" data-emotion="有力">有力</button>
+      <button class="tag" data-emotion="焦虑">焦虑</button>
+      <button class="tag" data-emotion="柔软">柔软</button>
     </div>
     <div class="period-toggle">
       <button id="period-start-btn" class="period-btn">🔴 经期开始</button>
@@ -101,12 +114,13 @@
   <div id="collective-layer" class="overlay collective-layer hidden">
     <div class="collective-content">
       <button class="collective-close">&times;</button>
-      <p class="collective-title">你已留下</p>
-      <p class="collective-count-line">
-        <span class="collective-count">0</span>
+      <p class="collective-title" id="collective-title">你已留下</p>
+      <p class="collective-count-line" id="collective-count-line">
+        <span class="collective-count" id="collective-count-num">0</span>
         <span class="collective-unit">笔颜色</span>
       </p>
-      <p class="collective-subtitle">标记今天的颜色，成为潮汐的一部分</p>
+      <p class="collective-subtitle" id="collective-subtitle">标记今天的颜色，成为潮汐的一部分</p>
+      <p class="collective-first-prompt hidden" id="collective-first">这是你的第一笔颜色，潮汐在等你</p>
       <div class="collective-stories">
         <p class="collective-story-hint">她们的故事，像漂流瓶一样浮上来……</p>
       </div>
@@ -125,7 +139,7 @@
       </div>
       <div class="setup-actions">
         <button id="setup-confirm" class="setup-btn primary">开始我的潮汐</button>
-        <button id="setup-skip" class="setup-btn secondary">暂时跳过</button>
+        <button id="setup-skip" class="setup-btn skip-link">先看看再说</button>
       </div>
     </div>
   </div>

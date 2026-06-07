@@ -2,10 +2,22 @@ export class OceanAudio {
   constructor() {
     this.audioCtx = null;
     this.isPlaying = false;
-    this.volume = 0.2;
+    this.volumeLevel = 1; // 0=off, 1=low(0.12), 2=medium(0.22)
+    this.volumes = [0, 0.12, 0.22];
     this.masterGain = null;
     this.whaleGain = null;
     this.whaleEnabled = false;
+    this.nightMode = this.checkNight();
+  }
+
+  checkNight() {
+    const h = new Date().getHours();
+    return h >= 22 || h < 6;
+  }
+
+  get volume() {
+    const base = this.volumes[this.volumeLevel] || 0;
+    return this.nightMode ? base * 0.6 : base;
   }
 
   init() {
@@ -213,17 +225,20 @@ export class OceanAudio {
       this.audioCtx.resume();
     }
 
+    // Cycle: low → medium → off → low ...
+    this.volumeLevel = (this.volumeLevel + 1) % 3;
+    this.isPlaying = this.volumeLevel > 0;
+
     const now = this.audioCtx.currentTime;
     this.masterGain.gain.cancelScheduledValues(now);
-    if (this.isPlaying) {
-      this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
-      this.masterGain.gain.linearRampToValueAtTime(0, now + 0.5);
-      this.isPlaying = false;
-    } else {
-      this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
-      this.masterGain.gain.linearRampToValueAtTime(this.volume, now + 0.5);
-      this.isPlaying = true;
-    }
+    this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
+    this.masterGain.gain.linearRampToValueAtTime(this.volume, now + 0.5);
+  }
+
+  getVolumeLabel() {
+    if (this.volumeLevel === 0) return 'off';
+    if (this.volumeLevel === 1) return 'low';
+    return 'medium';
   }
 
   resume() {

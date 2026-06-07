@@ -1,6 +1,6 @@
 import { getMoonPhase, getMoonPhaseName, isFullMoon, getTideLevel } from './moon.js';
 import { getCycleDay, getPhaseByDay, saveCycleStart, loadCycleData, isNightTime, saveCycleLength, getCycleLength } from './cycle.js';
-import { getBodyPoem } from './body-poems.js';
+import { getBodyPoem, getDayContent } from './body-poems.js';
 import { CycleLine } from './cycle-line.js';
 import { WaveEngine } from './wave-engine.js';
 import { OceanAudio } from './audio.js';
@@ -28,16 +28,12 @@ class App {
     this.audio = new OceanAudio();
     this.audio.setTideLevel(getTideLevel(this.moonPhase));
 
-    if (this.cycleDay) {
-      this.showCycleView();
-    } else {
-      this.showSetupPrompt();
-    }
+    this.setupAudio();
+    this.setupStartOverlay();
 
     const res = await fetch('data/narratives.json');
     const stories = await res.json();
     this.narratives = new NarrativeEngine(stories, this.moonPhase);
-    this.narratives.start();
 
     this.markSystem = new MarkSystem(this.waveEngine, this.audio);
 
@@ -55,12 +51,6 @@ class App {
     }
 
     this.milestones = new MilestoneSystem();
-    if (this.cycleDay) {
-      setTimeout(() => this.milestones.check(), 3000);
-    }
-
-    this.setupAudio();
-    this.setupStartOverlay();
 
     if (isNightTime()) {
       document.body.classList.add('night-mode');
@@ -90,9 +80,10 @@ class App {
 
   showCycleView() {
     const cycleLength = getCycleLength();
-    const phase = getPhaseByDay(Math.max(1, Math.min(28, Math.round((this.cycleDay / cycleLength) * 28))));
     const scaledDay = Math.max(1, Math.min(28, Math.round((this.cycleDay / cycleLength) * 28)));
+    const phase = getPhaseByDay(scaledDay);
     const poem = getBodyPoem(scaledDay);
+    const content = getDayContent(scaledDay);
     const lineContainer = document.getElementById('cycle-line-container');
     if (lineContainer) {
       this.cycleLine = new CycleLine(lineContainer, this.cycleDay);
@@ -100,12 +91,61 @@ class App {
 
     const phaseDesc = document.getElementById('phase-description');
     if (phaseDesc) {
-      phaseDesc.innerHTML = `
-        <span class="phase-today">今天：${phase.alias} · 「${phase.name}」</span>
-        <span class="phase-body">${poem.text}</span>
-      `;
+      const bodySpan = document.createElement('span');
+      bodySpan.className = 'phase-body';
+
+      const todaySpan = phaseDesc.querySelector('.phase-today');
+      if (todaySpan) todaySpan.remove();
+      const oldBody = phaseDesc.querySelector('.phase-body');
+      if (oldBody) oldBody.remove();
+
+      const newToday = document.createElement('span');
+      newToday.className = 'phase-today';
+      newToday.textContent = `第 ${this.cycleDay} 天 / ${cycleLength} 天 · ${phase.alias} · 「${phase.name}」`;
+
+      const tipsInline = phaseDesc.querySelector('.phase-tips-inline');
+      phaseDesc.insertBefore(bodySpan, tipsInline);
+      phaseDesc.insertBefore(newToday, bodySpan);
+
       phaseDesc.style.display = '';
+
+      setTimeout(() => {
+        phaseDesc.style.opacity = '1';
+        phaseDesc.style.transform = 'translateY(0)';
+        this.typewrite(bodySpan, poem.text, 60);
+      }, 200);
+
+      this.setupTipsInline(content);
     }
+
+    const bottomBar = document.querySelector('.bottom-bar');
+    if (bottomBar) {
+      setTimeout(() => bottomBar.classList.add('glow-burst'), 500);
+    }
+  }
+
+  typewrite(el, text, speed) {
+    el.style.opacity = '0.85';
+    let i = 0;
+    const tick = () => {
+      if (i < text.length) {
+        el.textContent += text[i];
+        i++;
+        setTimeout(tick, speed);
+      }
+    };
+    tick();
+  }
+
+  setupTipsInline(content) {
+    const tipsEl = document.getElementById('tips-inline');
+    const bodyEl = document.getElementById('tips-body');
+    const moodEl = document.getElementById('tips-mood');
+    if (!tipsEl || !content) return;
+
+    bodyEl.textContent = content.tip;
+    moodEl.textContent = content.mood;
+    tipsEl.classList.remove('hidden');
   }
 
   showSetupPrompt() {
@@ -142,6 +182,8 @@ class App {
         setup.classList.add('hidden');
         setup.classList.remove('fading');
         this.showCycleView();
+        this.narratives.start();
+        this.milestones.check();
       }, 600);
     });
 
@@ -150,6 +192,7 @@ class App {
       setTimeout(() => {
         setup.classList.add('hidden');
         setup.classList.remove('fading');
+        this.narratives.start();
       }, 600);
     });
   }
@@ -178,7 +221,9 @@ class App {
 
     toggleBtn.addEventListener('click', () => {
       this.audio.toggle();
-      icon.classList.toggle('off', !this.audio.isPlaying);
+      const label = this.audio.getVolumeLabel();
+      icon.classList.toggle('off', label === 'off');
+      icon.textContent = label === 'off' ? '~' : label === 'low' ? '~' : '≈';
     });
   }
 
@@ -194,7 +239,18 @@ class App {
       }
 
       overlay.classList.add('fading');
-      setTimeout(() => overlay.classList.add('hidden'), 1200);
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+
+        if (this.cycleDay) {
+          this.showCycleView();
+          this.narratives.start();
+          setTimeout(() => this.milestones.check(), 3000);
+        } else {
+          this.showSetupPrompt();
+        }
+      }, 1200);
+
       overlay.removeEventListener('click', dismiss);
       overlay.removeEventListener('touchstart', dismiss);
     };

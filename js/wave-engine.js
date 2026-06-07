@@ -7,15 +7,15 @@ const BASE_AMPLITUDE = 26;
 const FPS = 30;
 const FRAME_INTERVAL = 1000 / FPS;
 
-const DEFAULT_WAVE_RGB = [30, 58, 95];
+const DEFAULT_WAVE_RGB = [15, 25, 40];
 
 const LAYER_CONFIGS = [
-  { speed: 0.18, amp: 0.3, opacity: 0.08, yShift: -20, depthMix: 0 },
-  { speed: 0.28, amp: 0.4, opacity: 0.14, yShift: -8, depthMix: 0.15 },
-  { speed: 0.42, amp: 0.55, opacity: 0.22, yShift: 0, depthMix: 0.3 },
-  { speed: 0.6, amp: 0.7, opacity: 0.32, yShift: 10, depthMix: 0.5 },
-  { speed: 0.82, amp: 0.88, opacity: 0.45, yShift: 22, depthMix: 0.7 },
-  { speed: 1.05, amp: 1.0, opacity: 0.58, yShift: 36, depthMix: 0.9 },
+  { speed: 0.18, amp: 0.3, opacity: 0.06, yShift: -20, depthMix: 0 },
+  { speed: 0.28, amp: 0.4, opacity: 0.10, yShift: -8, depthMix: 0.15 },
+  { speed: 0.42, amp: 0.55, opacity: 0.18, yShift: 0, depthMix: 0.3 },
+  { speed: 0.6, amp: 0.7, opacity: 0.26, yShift: 10, depthMix: 0.5 },
+  { speed: 0.82, amp: 0.88, opacity: 0.36, yShift: 22, depthMix: 0.7 },
+  { speed: 1.05, amp: 1.0, opacity: 0.48, yShift: 36, depthMix: 0.9 },
 ];
 
 export class WaveEngine {
@@ -37,6 +37,8 @@ export class WaveEngine {
       : DEFAULT_WAVE_RGB;
 
     this.nightMode = isNightTime();
+    this.entranceProgress = 0;
+    this.entranceDuration = 1.5;
     this.resize();
     window.addEventListener('resize', () => this.resize());
   }
@@ -80,6 +82,9 @@ export class WaveEngine {
       this.lastFrame = now;
       this.render();
       this.time += 1 / FPS;
+      if (this.entranceProgress < 1) {
+        this.entranceProgress = Math.min(1, this.entranceProgress + (1 / FPS) / this.entranceDuration);
+      }
       if (this.tidePulse > 0) {
         this.tidePulse *= 0.97;
         if (this.tidePulse < 0.01) this.tidePulse = 0;
@@ -109,36 +114,26 @@ export class WaveEngine {
   }
 
   drawSky() {
-    const { ctx, width, height, nightMode } = this;
-    const grad = ctx.createLinearGradient(0, 0, 0, height);
-    if (nightMode) {
-      grad.addColorStop(0, '#030810');
-      grad.addColorStop(0.15, '#06101C');
-      grad.addColorStop(0.4, '#0A1628');
-      grad.addColorStop(1, '#050C16');
-    } else {
-      grad.addColorStop(0, '#060D18');
-      grad.addColorStop(0.15, '#0A1628');
-      grad.addColorStop(0.4, '#0F2035');
-      grad.addColorStop(0.7, '#0C1A2E');
-      grad.addColorStop(1, '#08101E');
-    }
-    ctx.fillStyle = grad;
+    const { ctx, width, height } = this;
+    ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, width, height);
   }
 
   drawMoonGlow() {
     const { ctx, width, height, moonPhase } = this;
-    const intensity = Math.pow(Math.sin(moonPhase * Math.PI), 2);
+    const intensity = Math.pow(Math.sin(moonPhase * Math.PI), 2) * this.entranceProgress;
     if (intensity < 0.1) return;
+
+    const phase = this.cycleDay ? getPhaseByDay(this.cycleDay) : null;
+    const glowColor = phase?.glowColor || [192, 197, 206];
 
     const grad = ctx.createRadialGradient(
       width * 0.5, height * 0.06, 0,
       width * 0.5, height * 0.06, height * 0.4 * intensity
     );
-    grad.addColorStop(0, `rgba(192, 197, 206, ${0.08 * intensity})`);
-    grad.addColorStop(0.4, `rgba(192, 197, 206, ${0.03 * intensity})`);
-    grad.addColorStop(1, 'rgba(192, 197, 206, 0)');
+    grad.addColorStop(0, `rgba(${glowColor[0]}, ${glowColor[1]}, ${glowColor[2]}, ${0.06 * intensity})`);
+    grad.addColorStop(0.4, `rgba(${glowColor[0]}, ${glowColor[1]}, ${glowColor[2]}, ${0.02 * intensity})`);
+    grad.addColorStop(1, `rgba(${glowColor[0]}, ${glowColor[1]}, ${glowColor[2]}, 0)`);
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, width, height);
   }
@@ -157,10 +152,15 @@ export class WaveEngine {
     const effectiveTide = Math.min(1, tideLevel + tidePulse * 0.08);
     const baseY = height * (0.42 + 0.32 * (1 - effectiveTide)) + config.yShift;
 
+    const layerDelay = layerIdx / NUM_LAYERS * 0.3;
+    const layerProgress = Math.max(0, Math.min(1, (this.entranceProgress - layerDelay) / (1 - layerDelay)));
+    const layerEase = 1 - Math.pow(1 - layerProgress, 3);
+    const riseOffset = (1 - layerEase) * height * 0.5;
+
     const points = [];
     for (let i = 0; i < POINTS_PER_WAVE; i++) {
       const x = i * segmentWidth;
-      const y = baseY + this.calcWaveY(x, config, time);
+      const y = baseY + riseOffset + this.calcWaveY(x, config, time) * layerEase;
       points.push({ x, y });
     }
 
@@ -176,12 +176,32 @@ export class WaveEngine {
     ctx.closePath();
 
     const color = this.getLayerColor(layerIdx);
-    const grad = ctx.createLinearGradient(0, baseY - 40, 0, height);
-    grad.addColorStop(0, `rgba(${color[0] + 15}, ${color[1] + 15}, ${color[2] + 20}, ${config.opacity})`);
-    grad.addColorStop(0.5, `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${config.opacity * 0.9})`);
-    grad.addColorStop(1, `rgba(${color[0] - 10}, ${color[1] - 10}, ${color[2] - 5}, ${config.opacity * 0.7})`);
+    const entranceAlpha = layerEase;
+    const grad = ctx.createLinearGradient(0, baseY + riseOffset - 40, 0, height);
+    grad.addColorStop(0, `rgba(${color[0] + 20}, ${color[1] + 20}, ${color[2] + 25}, ${config.opacity * entranceAlpha})`);
+    grad.addColorStop(0.5, `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${config.opacity * 0.85 * entranceAlpha})`);
+    grad.addColorStop(1, `rgba(${Math.max(0, color[0] - 10)}, ${Math.max(0, color[1] - 10)}, ${Math.max(0, color[2] - 5)}, ${config.opacity * 0.6 * entranceAlpha})`);
     ctx.fillStyle = grad;
     ctx.fill();
+
+    if (layerIdx >= NUM_LAYERS - 2) {
+      const phase = this.cycleDay ? getPhaseByDay(this.cycleDay) : null;
+      const glow = phase?.glowColor || [100, 150, 200];
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 0; i < points.length - 1; i++) {
+        const cpX = (points[i].x + points[i + 1].x) / 2;
+        const cpY = (points[i].y + points[i + 1].y) / 2;
+        ctx.quadraticCurveTo(points[i].x, points[i].y, cpX, cpY);
+      }
+      ctx.strokeStyle = `rgba(${glow[0]}, ${glow[1]}, ${glow[2]}, ${config.opacity * 0.25})`;
+      ctx.lineWidth = 1.5;
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = `rgba(${glow[0]}, ${glow[1]}, ${glow[2]}, 0.3)`;
+      ctx.stroke();
+      ctx.restore();
+    }
 
     if (layerIdx === NUM_LAYERS - 1) {
       this.updateFoam(points);

@@ -62,7 +62,38 @@
   font-weight: 300;
   max-width: 560rpx;
   text-align: center;
-  margin-bottom: 60rpx;
+  margin-bottom: 36rpx;
+}
+
+.tips-section {
+  max-width: 560rpx;
+  width: 100%;
+  margin-bottom: 48rpx;
+}
+
+.tip-row {
+  margin-bottom: 20rpx;
+}
+
+.tip-row:last-child { margin-bottom: 0; }
+
+.tip-tag {
+  display: inline-block;
+  font-size: 20rpx;
+  padding: 2rpx 12rpx;
+  border-radius: 8rpx;
+  background: rgba(192, 197, 206, 0.08);
+  color: #C0C5CE;
+  opacity: 0.7;
+  margin-right: 10rpx;
+  vertical-align: middle;
+}
+
+.tip-text {
+  font-size: 24rpx;
+  line-height: 1.7;
+  opacity: 0.45;
+  font-weight: 300;
 }
 
 .nav {
