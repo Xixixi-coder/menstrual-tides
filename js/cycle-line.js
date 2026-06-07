@@ -27,16 +27,15 @@ export class CycleLine {
       const rgb = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 
       if (day <= this.cycleDay) {
-        node.style.background = rgb;
-        node.style.boxShadow = `0 0 4px ${rgb}`;
+        node.style.background = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.6)`;
         node.classList.add('filled');
       } else {
-        node.style.borderColor = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.25)`;
+        node.style.borderColor = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.2)`;
       }
 
       if (day === this.cycleDay) {
         node.classList.add('current');
-        node.style.boxShadow = `0 0 8px ${rgb}, 0 0 16px rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.3)`;
+        node.style.background = rgb;
       }
 
       node.addEventListener('click', () => this.showDayDetail(day));
@@ -60,7 +59,7 @@ export class CycleLine {
     info.innerHTML = `
       <span class="cycle-day-label">第 ${this.cycleDay} 天 / ${this.cycleLength} 天</span>
       <span class="cycle-phase-dot" style="background: ${phase.color}"></span>
-      <span class="cycle-phase-name">${phase.alias} · ${phase.name}</span>
+      <span class="cycle-phase-name">${phase.alias}</span>
     `;
     wrapper.appendChild(info);
 

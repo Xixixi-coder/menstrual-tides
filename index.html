@@ -26,8 +26,8 @@
     <div class="phase-tips-inline hidden" id="tips-inline">
       <div class="tips-divider"></div>
       <div class="tips-inline-header">
-        <span class="tips-inline-icon">💡</span>
-        <span class="tips-inline-label">今日贴士</span>
+        <span class="tips-inline-icon">📖</span>
+        <span class="tips-inline-label">身体正在做什么</span>
       </div>
       <p class="tips-inline-body" id="tips-body"></p>
       <p class="tips-inline-mood" id="tips-mood"></p>
@@ -46,9 +46,9 @@
   <!-- Bottom Bar -->
   <div class="bottom-bar overlay">
     <button id="mark-btn">
-      <span class="mark-wave">~</span> 记录今日状态
+      <span class="mark-drop">💧</span> 标记今天的颜色
     </button>
-    <button id="spectrum-btn" class="spectrum-trigger">体验 28 天色谱</button>
+    <a id="spectrum-btn" class="spectrum-link">体验28天色谱</a>
     <span id="mark-counter" class="mark-counter hidden"></span>
   </div>
 
@@ -102,7 +102,7 @@
   <!-- Collective Hint -->
   <div id="collective-hint" class="overlay collective-hint">
     <span class="hint-arrow">↕</span>
-    <span class="hint-text">轻轻上滑，进入集体潮汐</span>
+    <span class="hint-text">上滑，潜入更深的海</span>
   </div>
 
   <!-- Spectrum Explorer -->
@@ -131,7 +131,7 @@
   <div id="cycle-setup" class="overlay hidden">
     <div class="setup-card">
       <p class="setup-title">你的上一次月经是什么时候开始的？</p>
-      <p class="setup-sub">这将帮助我们为你生成个人潮汐色谱</p>
+      <p class="setup-sub">这将帮助你看见自己的潮汐</p>
       <input type="date" id="setup-date" class="setup-date">
       <div class="setup-length">
         <label class="setup-length-label">周期长度：<span id="setup-length-val">28</span> 天</label>
@@ -148,7 +148,7 @@
   <div id="start-overlay" class="overlay">
     <div class="start-content">
       <div class="start-moon"></div>
-      <p class="start-text">点击任意处，开启潮声</p>
+      <p class="start-text">点击开启潮声</p>
     </div>
   </div>
 

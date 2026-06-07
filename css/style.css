@@ -1,13 +1,13 @@
 :root {
   --bg-abyss: #000000;
   --bg-deep: #0A1628;
-  --neon-magenta: #FF007F;
-  --neon-cyan: #39FF14;
-  --neon-gold: #FFD700;
-  --neon-purple: #7B68EE;
-  --neon-blue: #00BFFF;
-  --text-primary: #F0F0F0;
-  --text-secondary: #666666;
+  --neon-magenta: #9B3D3D;
+  --neon-cyan: #6B9B5A;
+  --neon-gold: #C4A84A;
+  --neon-purple: #5A4A6B;
+  --neon-blue: #7A8FA3;
+  --text-primary: #F5F5F0;
+  --text-secondary: #A0A8B0;
   --ease-calm: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-wave: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --phase-glow: var(--neon-magenta);
@@ -69,12 +69,14 @@ canvas {
 }
 
 .moon-icon {
-  font-size: 3rem; line-height: 1;
-  text-shadow: 0 0 30px rgba(255, 215, 0, 0.3), 0 0 60px rgba(255, 215, 0, 0.1);
+  font-size: 2.8rem; line-height: 1;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  padding: 6px;
 }
 
 .moon-icon.fullmoon-glow {
-  text-shadow: 0 0 30px rgba(255,215,0,0.5), 0 0 60px rgba(255,215,0,0.25), 0 0 100px rgba(255,215,0,0.1);
+  border-color: rgba(196, 168, 74, 0.2);
   animation: moonPulse 4s ease-in-out infinite;
 }
 
@@ -122,7 +124,6 @@ canvas {
 
 .cycle-node.current {
   width: 10px; height: 10px;
-  box-shadow: 0 0 8px var(--phase-glow);
   animation: breatheNode 2.5s var(--ease-wave) infinite;
 }
 
@@ -208,7 +209,6 @@ canvas {
   line-height: 1.7;
   font-weight: 400;
   opacity: 0;
-  text-shadow: 0 0 40px rgba(var(--glow-r, 255), var(--glow-g, 0), var(--glow-b, 127), 0.15);
   overflow: hidden;
 }
 
@@ -218,12 +218,12 @@ canvas {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   width: min(82vw, 380px);
-  padding: 28px 24px;
+  padding: 24px 20px;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(20px) saturate(120%);
   -webkit-backdrop-filter: blur(20px) saturate(120%);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
   text-align: center;
   opacity: 0;
   transition: opacity 1s var(--ease-calm);
@@ -234,8 +234,7 @@ canvas {
 #narrative-card.visible { opacity: 1; }
 
 #narrative-card.fullmoon {
-  box-shadow: 0 0 60px rgba(255,215,0,0.08), inset 0 0 40px rgba(255,215,0,0.03);
-  border-color: rgba(255, 215, 0, 0.12);
+  border-color: rgba(196, 168, 74, 0.15);
 }
 
 .narrative-badge {
@@ -295,7 +294,6 @@ canvas {
 .narrative-save.saved {
   color: var(--neon-magenta);
   opacity: 0.8;
-  text-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
 }
 
 /* ─── Bottom Bar ─── */
@@ -304,7 +302,7 @@ canvas {
   bottom: 36px; right: 24px; left: auto;
   transform: none;
   display: flex; flex-direction: column;
-  align-items: flex-end; gap: 8px;
+  align-items: flex-end; gap: 16px;
   opacity: 0;
   animation: ctaEntrance 0.8s var(--ease-calm) 3s forwards;
 }
@@ -314,28 +312,24 @@ canvas {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 2px solid var(--phase-glow);
-  border-radius: 28px;
+  border-radius: 24px;
   padding: 14px 32px;
   color: var(--phase-glow);
   font-size: 0.86rem;
   cursor: pointer;
   transition: all 400ms var(--ease-calm);
   letter-spacing: 0.03em;
-  box-shadow: 0 0 20px rgba(var(--glow-r, 255), var(--glow-g, 0), var(--glow-b, 127), 0.15);
 }
 
 #mark-btn:hover {
   background: var(--phase-glow);
   color: #000000;
-  box-shadow: 0 0 30px rgba(var(--glow-r, 255), var(--glow-g, 0), var(--glow-b, 127), 0.4);
 }
 
 #mark-btn:active { transform: scale(0.96); }
 
-.mark-wave {
-  display: inline-block;
-  animation: wave 3s ease-in-out infinite;
-  margin-right: 2px;
+.mark-drop {
+  margin-right: 4px;
 }
 
 .mark-counter {
@@ -395,15 +389,14 @@ canvas {
 }
 
 .tag:hover {
-  border-color: rgba(255, 0, 127, 0.4);
-  background: rgba(255, 0, 127, 0.05);
+  border-color: rgba(155, 61, 61, 0.3);
+  background: rgba(155, 61, 61, 0.05);
 }
 
 .tag.selected {
-  background: rgba(255, 0, 127, 0.12);
+  background: rgba(155, 61, 61, 0.12);
   border-color: var(--neon-magenta);
   color: var(--neon-magenta);
-  box-shadow: 0 0 15px rgba(255, 0, 127, 0.15);
 }
 
 .poem-hint {
@@ -452,7 +445,6 @@ canvas {
 .mark-submit:not(:disabled):hover {
   background: var(--neon-magenta);
   color: #000;
-  box-shadow: 0 0 25px rgba(255, 0, 127, 0.3);
 }
 
 .mark-close {
@@ -478,7 +470,7 @@ canvas {
 .period-btn {
   padding: 6px 14px;
   border-radius: 4px;
-  border: 1px solid rgba(255, 0, 127, 0.3);
+  border: 1px solid rgba(155, 61, 61, 0.3);
   background: transparent;
   color: var(--neon-magenta);
   font-size: 0.72rem;
@@ -488,13 +480,12 @@ canvas {
 }
 
 .period-btn:hover {
-  background: rgba(255, 0, 127, 0.08);
+  background: rgba(155, 61, 61, 0.08);
 }
 
 .period-btn.active {
-  background: rgba(255, 0, 127, 0.15);
+  background: rgba(155, 61, 61, 0.15);
   border-color: var(--neon-magenta);
-  box-shadow: 0 0 12px rgba(255, 0, 127, 0.15);
 }
 
 .period-btn.period-end {
@@ -639,7 +630,6 @@ canvas {
   background: var(--neon-magenta);
   border: none;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
 }
 
 .setup-btn {
@@ -656,12 +646,11 @@ canvas {
   background: var(--neon-magenta);
   color: #000000;
   font-weight: 500;
-  box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
 }
 
 .setup-btn.primary:hover {
   transform: scale(1.02);
-  box-shadow: 0 0 30px rgba(255, 0, 127, 0.5);
+  opacity: 0.9;
 }
 
 .setup-btn.secondary {
@@ -732,7 +721,6 @@ canvas {
 .start-moon {
   font-size: 4rem; margin-bottom: 24px;
   animation: breathe 4s var(--ease-wave) infinite;
-  filter: drop-shadow(0 0 30px rgba(255,215,0,0.2));
 }
 
 .start-text {
@@ -789,25 +777,24 @@ canvas {
 
 .poster-icon { opacity: 0.5; }
 
-/* ─── Spectrum Trigger ─── */
+/* ─── Spectrum Link ─── */
 
-.spectrum-trigger {
+.spectrum-link {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  padding: 6px 16px;
+  border: none;
+  padding: 4px 0;
   color: var(--text-secondary);
   font-size: 0.68rem;
   cursor: pointer;
-  opacity: 0.5;
-  transition: all 300ms var(--ease-calm);
+  opacity: 0.35;
+  transition: opacity 300ms var(--ease-calm);
   letter-spacing: 0.05em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-.spectrum-trigger:hover {
-  opacity: 0.8;
-  border-color: var(--phase-glow);
-  color: var(--phase-glow);
+.spectrum-link:hover {
+  opacity: 0.6;
 }
 
 /* ─── Spectrum Explorer ─── */
@@ -1058,7 +1045,6 @@ canvas {
   font-size: 3.5rem;
   font-weight: 300;
   color: var(--neon-magenta);
-  text-shadow: 0 0 30px rgba(255, 0, 127, 0.3);
 }
 
 .collective-unit {
@@ -1283,7 +1269,6 @@ body.missed-you #tide-canvas {
 .milestone-icon {
   font-size: 2rem;
   margin-bottom: 14px;
-  text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
 }
 
 .milestone-msg {
@@ -1356,16 +1341,6 @@ body.missed-you #tide-canvas {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes glowBurst {
-  0% { box-shadow: 0 0 0 rgba(var(--glow-r, 255), var(--glow-g, 0), var(--glow-b, 127), 0); }
-  30% { box-shadow: 0 0 40px rgba(var(--glow-r, 255), var(--glow-g, 0), var(--glow-b, 127), 0.5), 0 0 80px rgba(var(--glow-r, 255), var(--glow-g, 0), var(--glow-b, 127), 0.2); }
-  100% { box-shadow: 0 0 20px rgba(var(--glow-r, 255), var(--glow-g, 0), var(--glow-b, 127), 0.15); }
-}
-
-.bottom-bar.glow-burst #mark-btn {
-  animation: glowBurst 1s var(--ease-calm) forwards;
-}
-
 @keyframes wave {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   25% { transform: translateY(-1.5px) rotate(-3deg); }
@@ -1383,8 +1358,8 @@ body.missed-you #tide-canvas {
 }
 
 @keyframes moonPulse {
-  0%, 100% { text-shadow: 0 0 30px rgba(255,215,0,0.4), 0 0 60px rgba(255,215,0,0.15); }
-  50% { text-shadow: 0 0 40px rgba(255,215,0,0.6), 0 0 80px rgba(255,215,0,0.25); }
+  0%, 100% { border-color: rgba(196, 168, 74, 0.15); }
+  50% { border-color: rgba(196, 168, 74, 0.3); }
 }
 
 @keyframes floatUp {

@@ -101,7 +101,7 @@ class App {
 
       const newToday = document.createElement('span');
       newToday.className = 'phase-today';
-      newToday.textContent = `第 ${this.cycleDay} 天 / ${cycleLength} 天 · ${phase.alias} · 「${phase.name}」`;
+      newToday.textContent = `第 ${this.cycleDay} 天 / ${cycleLength} 天 · ${phase.alias}`;
 
       const tipsInline = phaseDesc.querySelector('.phase-tips-inline');
       phaseDesc.insertBefore(bodySpan, tipsInline);

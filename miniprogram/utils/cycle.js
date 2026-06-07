@@ -1,9 +1,9 @@
 const PHASES = [
-  { name: '蛰伏期', alias: '姨妈红', range: [1, 5], color: '#B85450', colorRGB: [184, 84, 80], waveColor: [120, 50, 48], poem: '内省的' },
-  { name: '萌发期', alias: '芽绿', range: [6, 12], color: '#6E9E5C', colorRGB: [110, 158, 92], waveColor: [55, 105, 62], poem: '清新的' },
-  { name: '创造力', alias: '金色', range: [13, 15], color: '#D4B84E', colorRGB: [212, 184, 78], waveColor: [140, 125, 50], poem: '明亮的' },
-  { name: '内省期', alias: '深紫', range: [16, 22], color: '#5E4570', colorRGB: [94, 69, 112], waveColor: [60, 45, 85], poem: '深邃的' },
-  { name: '涌动期', alias: '雾蓝', range: [23, 28], color: '#7E92AB', colorRGB: [126, 146, 171], waveColor: [62, 80, 115], poem: '温柔的' },
+  { name: '蛰伏期', alias: '玫红·蛰伏', range: [1, 5], color: '#9B3D3D', colorRGB: [155, 61, 61], waveColor: [60, 20, 20], poem: '内省的' },
+  { name: '萌发期', alias: '芽绿·萌发', range: [6, 12], color: '#6B9B5A', colorRGB: [107, 155, 90], waveColor: [20, 40, 18], poem: '清新的' },
+  { name: '创造力', alias: '暗金·创造', range: [13, 15], color: '#C4A84A', colorRGB: [196, 168, 74], waveColor: [50, 42, 15], poem: '明亮的' },
+  { name: '内省期', alias: '紫蓝·内省', range: [16, 22], color: '#5A4A6B', colorRGB: [90, 74, 107], waveColor: [22, 18, 32], poem: '深邃的' },
+  { name: '涌动期', alias: '雾蓝·涌动', range: [23, 28], color: '#7A8FA3', colorRGB: [122, 143, 163], waveColor: [24, 30, 38], poem: '温柔的' },
 ];
 
 function getPhaseByDay(day) {

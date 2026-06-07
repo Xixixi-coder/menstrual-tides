@@ -195,10 +195,8 @@ export class WaveEngine {
         const cpY = (points[i].y + points[i + 1].y) / 2;
         ctx.quadraticCurveTo(points[i].x, points[i].y, cpX, cpY);
       }
-      ctx.strokeStyle = `rgba(${glow[0]}, ${glow[1]}, ${glow[2]}, ${config.opacity * 0.25})`;
-      ctx.lineWidth = 1.5;
-      ctx.shadowBlur = 15;
-      ctx.shadowColor = `rgba(${glow[0]}, ${glow[1]}, ${glow[2]}, 0.3)`;
+      ctx.strokeStyle = `rgba(${glow[0]}, ${glow[1]}, ${glow[2]}, ${config.opacity * 0.12})`;
+      ctx.lineWidth = 1;
       ctx.stroke();
       ctx.restore();
     }
