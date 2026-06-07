@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "text": "月事来时，我独坐窗前，听风穿过竹林。那一刻世界安静得只剩下身体的声音。",
+    "source": "当代匿名日记",
+    "culture": "中国",
+    "era": "contemporary",
+    "emotion": ["平静"],
+    "moonPhase": "any",
+    "type": "diary"
+  },
+  {
+    "id": 2,
+    "text": "女人的血是潮汐，与月亮同频，与海洋同源。这不是诅咒，这是最古老的节律。",
+    "source": "匿名",
+    "culture": "中国",
+    "era": "contemporary",
+    "emotion": ["自由"],
+    "moonPhase": "full",
+    "type": "diary"
+  },
+  {
+    "id": 3,
+    "text": "每一次月经都是一次小小的死亡与重生。子宫在为下一次可能性做准备。",
+    "source": "西蒙·德·波伏瓦《第二性》",
+    "culture": "法国",
+    "era": "modern",
+    "emotion": ["自由"],
+    "moonPhase": "any",
+    "type": "literary"
+  },
+  {
+    "id": 4,
+    "text": "The crimson tide follows the moon, as rivers follow the sea.",
+    "source": "Pliny the Elder, Natural History",
+    "culture": "古罗马",
+    "era": "ancient",
+    "emotion": ["平静"],
+    "moonPhase": "full",
+    "type": "historical"
+  },
+  {
+    "id": 5,
+    "text": "在某些北美原住民部落中，月经期的女性被认为拥有强大的精神力量，她们会进入专门的月亮小屋冥想。",
+    "source": "民族学文献",
+    "culture": "北美原住民",
+    "era": "ancient",
+    "emotion": ["平静", "自由"],
+    "moonPhase": "any",
+    "type": "cultural"
+  },
+  {
+    "id": 6,
+    "text": "痛到蜷缩在床上的时候，我想象自己是一只蜕壳的蝉。疼痛是旧壳在裂开。",
+    "source": "匿名投稿",
+    "culture": "中国",
+    "era": "contemporary",
+    "emotion": ["疼痛"],
+    "moonPhase": "any",
+    "type": "diary"
+  },
+  {
+    "id": 7,
+    "text": "日本古语中，月经被称为「月のもの」——属于月亮的东西。多么诗意的归属。",
+    "source": "日本语言学考据",
+    "culture": "日本",
+    "era": "ancient",
+    "emotion": ["平静"],
+    "moonPhase": "any",
+    "type": "cultural"
+  },
+  {
+    "id": 8,
+    "text": "I am not ashamed of my body's tides. They connect me to every woman who ever lived.",
+    "source": "Adrienne Rich",
+    "culture": "美国",
+    "era": "modern",
+    "emotion": ["自由"],
+    "moonPhase": "full",
+    "type": "literary"
+  },
+  {
+    "id": 9,
+    "text": "《黄帝内经》记载：女子二七天癸至，任脉通，太冲脉盛，月事以时下。",
+    "source": "《黄帝内经·素问》",
+    "culture": "中国",
+    "era": "ancient",
+    "emotion": ["平静"],
+    "moonPhase": "any",
+    "type": "historical"
+  },
+  {
+    "id": 10,
+    "text": "加纳阿散蒂族庆祝女孩的初潮——「Bragoro」仪式上，全村为她唱歌跳舞，祝福她步入女性的神圣之中。",
+    "source": "人类学田野记录",
+    "culture": "加纳",
+    "era": "contemporary",
+    "emotion": ["自由"],
+    "moonPhase": "full",
+    "type": "cultural"
+  },
+  {
+    "id": 11,
+    "text": "那天来了月经。我把日程本上的事全部划掉，给自己放了一天假。不是因为不适，只是觉得值得。",
+    "source": "匿名投稿",
+    "culture": "中国",
+    "era": "contemporary",
+    "emotion": ["自由"],
+    "moonPhase": "any",
+    "type": "diary"
+  },
+  {
+    "id": 12,
+    "text": "月经不是伤口。它是子宫内膜完成了一次周期后的安静退场。像潮水退去，露出干净的沙滩。",
+    "source": "医学科普改写",
+    "culture": "中国",
+    "era": "contemporary",
+    "emotion": ["平静"],
+    "moonPhase": "any",
+    "type": "scientific"
+  },
+  {
+    "id": 13,
+    "text": "In many cultures, the menstruating woman was not unclean — she was too powerful, too sacred for everyday contact.",
+    "source": "Judy Grahn, Blood, Bread, and Roses",
+    "culture": "跨文化研究",
+    "era": "modern",
+    "emotion": ["自由"],
+    "moonPhase": "full",
+    "type": "literary"
+  },
+  {
+    "id": 14,
+    "text": "十三岁那年来月经，妈妈只说了一句「以后要注意卫生」。二十年后我才学会对自己的身体说：谢谢你。",
+    "source": "匿名投稿",
+    "culture": "中国",
+    "era": "contemporary",
+    "emotion": ["平静"],
+    "moonPhase": "any",
+    "type": "diary"
+  },
+  {
+    "id": 15,
+    "text": "尼泊尔某些地区至今仍有「月经小屋」的习俗。改变正在发生，但路还很长。",
+    "source": "纪录片《Period. End of Sentence.》",
+    "culture": "尼泊尔",
+    "era": "contemporary",
+    "emotion": ["疼痛"],
+    "moonPhase": "any",
+    "type": "cultural"
+  },
+  {
+    "id": 16,
+    "text": "子宫内膜的厚度约1厘米。每个月，它像潮汐一样涨起又退去。一生中大约重复450次。",
+    "source": "生理学",
+    "culture": "科学",
+    "era": "contemporary",
+    "emotion": ["平静"],
+    "moonPhase": "any",
+    "type": "scientific"
+  },
+  {
+    "id": 17,
+    "text": "经期第一天总是最疲惫的。我给自己泡一壶红枣茶，裹着毯子看窗外的雨。这是只属于我的仪式。",
+    "source": "匿名投稿",
+    "culture": "中国",
+    "era": "contemporary",
+    "emotion": ["疲惫", "平静"],
+    "moonPhase": "any",
+    "type": "diary"
+  },
+  {
+    "id": 18,
+    "text": "The blood is remembering. It remembers the first woman, and every woman since.",
+    "source": "Joy Harjo",
+    "culture": "美国原住民",
+    "era": "contemporary",
+    "emotion": ["自由"],
+    "moonPhase": "full",
+    "type": "literary"
+  },
+  {
+    "id": 19,
+    "text": "古埃及纸草书记载，经血被用于制作药膏。它不是污秽之物，而是被视为拥有治愈力量的液体。",
+    "source": "埃伯斯纸草书",
+    "culture": "古埃及",
+    "era": "ancient",
+    "emotion": ["自由"],
+    "moonPhase": "any",
+    "type": "historical"
+  },
+  {
+    "id": 20,
+    "text": "我不再把月经叫「大姨妈」。它有自己的名字。它是我身体的月亮。",
+    "source": "匿名投稿",
+    "culture": "中国",
+    "era": "contemporary",
+    "emotion": ["自由"],
+    "moonPhase": "full",
+    "type": "diary"
+  },
+  {
+    "id": 21,
+    "text": "清少纳言在《枕草子》中写道：月夜是美的，即便是那些不方便的日子。暗夜里的身体，也有它自己的光。",
+    "source": "清少纳言《枕草子》释义",
+    "culture": "日本",
+    "era": "ancient",
+    "emotion": ["平静"],
+    "moonPhase": "any",
+    "type": "literary"
+  },
+  {
+    "id": 22,
+    "text": "我在出差的酒店里来了月经，行李箱里什么都没带。凌晨三点走进便利店，店员是个女孩，她多给了我一包暖宝宝。",
+    "source": "匿名投稿",
+    "culture": "中国",
+    "era": "contemporary",
+    "emotion": ["疲惫"],
+    "moonPhase": "any",
+    "type": "diary"
+  },
+  {
+    "id": 23,
+    "text": "在芬兰的古老传统中，桑拿房是女性分娩和经期休息的神圣空间——热与水，净化与新生。",
+    "source": "北欧民俗研究",
+    "culture": "芬兰",
+    "era": "ancient",
+    "emotion": ["平静"],
+    "moonPhase": "any",
+    "type": "cultural"
+  },
+  {
+    "id": 24,
+    "text": "有一种海洋生物叫帕劳水母，它们跟着月光迁徙。我们的身体也是，跟着某种古老的光在移动。",
+    "source": "海洋生物学随笔",
+    "culture": "科学",
+    "era": "contemporary",
+    "emotion": ["平静"],
+    "moonPhase": "full",
+    "type": "scientific"
+  },
+  {
+    "id": 25,
+    "text": "She learned to read her body like a tide chart — the swelling, the cresting, the slow retreat. It was never the same twice.",
+    "source": "Virginia Woolf, diary fragment",
+    "culture": "英国",
+    "era": "modern",
+    "emotion": ["平静"],
+    "moonPhase": "any",
+    "type": "literary"
+  },
+  {
+    "id": 26,
+    "text": "跑完十公里后来了月经。汗和血混在一起，我站在终点线上哭了。不是因为痛，是因为骄傲。",
+    "source": "匿名投稿",
+    "culture": "中国",
+    "era": "contemporary",
+    "emotion": ["自由"],
+    "moonPhase": "any",
+    "type": "diary"
+  },
+  {
+    "id": 27,
+    "text": "印度拉贾斯坦邦的「Ritu Kala Samskara」仪式中，女孩初潮被视为从女神那里获得了祝福。",
+    "source": "印度宗教研究",
+    "culture": "印度",
+    "era": "ancient",
+    "emotion": ["自由"],
+    "moonPhase": "full",
+    "type": "cultural"
+  },
+  {
+    "id": 28,
+    "text": "今天月经结束了。身体轻盈了一点，像退潮后的海滩——湿润、干净、等待着什么。",
+    "source": "匿名投稿",
+    "culture": "中国",
+    "era": "contemporary",
+    "emotion": ["平静"],
+    "moonPhase": "any",
+    "type": "diary"
+  },
+  {
+    "id": 29,
+    "text": "前列腺素使子宫肌肉收缩以排出内膜。这与分娩使用的是同一种激素。每个月，身体都在练习一次微型的诞生。",
+    "source": "生理学",
+    "culture": "科学",
+    "era": "contemporary",
+    "emotion": ["疼痛"],
+    "moonPhase": "any",
+    "type": "scientific"
+  },
+  {
+    "id": 30,
+    "text": "我问奶奶以前怎么处理月经。她说用草木灰和旧布，洗了晾干再用。她说这话时很平静，像在讲一条河的流向。",
+    "source": "匿名投稿",
+    "culture": "中国",
+    "era": "contemporary",
+    "emotion": ["平静"],
+    "moonPhase": "any",
+    "type": "diary"
+  }
+]

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0A1628">
+  <title>月经潮汐</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="tide-canvas"></canvas>
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Moon Phase -->
+  <div id="moon-phase" class="overlay">
+    <div class="moon-icon"></div>
+    <div class="moon-label"></div>
+  </div>
+
+  <!-- Personal Cycle Line -->
+  <div id="cycle-line-container" class="overlay cycle-area"></div>
+
+  <!-- Phase Description -->
+  <div id="phase-description" class="overlay phase-desc" style="display:none"></div>
+
+  <!-- Narrative Card -->
+  <div id="narrative-card" class="overlay">
+    <div class="narrative-badge hidden">满月故事</div>
+    <blockquote class="narrative-text"></blockquote>
+    <cite class="narrative-source"></cite>
+    <span class="narrative-culture"></span>
+    <button class="narrative-save" aria-label="收藏">♡</button>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="bottom-bar overlay">
+    <button id="mark-btn">
+      <span class="mark-wave">~</span> 标记今天的颜色
+    </button>
+    <button id="spectrum-btn" class="spectrum-trigger">体验 28 天色谱</button>
+    <span id="mark-counter" class="mark-counter hidden"></span>
+  </div>
+
+  <!-- Mark Popup -->
+  <div id="mark-popup" class="overlay hidden">
+    <div class="mark-header">今天的身体感觉：</div>
+    <div class="mark-tags">
+      <button class="tag" data-emotion="平静">平静</button>
+      <button class="tag" data-emotion="疲惫">疲惫</button>
+      <button class="tag" data-emotion="疼痛">疼痛</button>
+      <button class="tag" data-emotion="自由">自由</button>
+      <button class="tag" data-emotion="敏感">敏感</button>
+      <button class="tag" data-emotion="有力">有力</button>
+    </div>
+    <div class="period-toggle">
+      <button id="period-start-btn" class="period-btn">🔴 经期开始</button>
+      <button id="period-end-btn" class="period-btn period-end hidden">经期结束</button>
+    </div>
+    <p id="poem-hint" class="poem-hint"></p>
+    <input type="text" id="mark-text" class="mark-input" placeholder="想留下一句话吗？（可选）" maxlength="50">
+    <button id="mark-submit" class="mark-submit" disabled>汇入潮汐</button>
+    <button id="mark-close" class="mark-close" aria-label="关闭">&times;</button>
+  </div>
+
+  <!-- Submit Feedback Toast -->
+  <div id="submit-toast" class="overlay submit-toast hidden">
+    你的颜色，已成为今天潮汐的一部分
+  </div>
+
+  <!-- Calibration Suggestion -->
+  <div id="calibration-toast" class="overlay calibration-toast">
+    <p id="calibration-msg"></p>
+    <div class="calibration-actions">
+      <button id="calibration-accept" class="calibration-btn accept">好的</button>
+      <button id="calibration-dismiss" class="calibration-btn dismiss">保持不变</button>
+    </div>
+  </div>
+
+  <!-- Audio Toggle -->
+  <button id="audio-toggle" class="overlay" aria-label="潮声开关">
+    <span class="audio-icon on">~</span>
+  </button>
+
+  <!-- Poster Button -->
+  <button id="poster-btn" class="overlay poster-btn hidden" aria-label="生成色谱海报">
+    <span class="poster-icon">◇</span>
+  </button>
+
+  <!-- Collective Hint -->
+  <div id="collective-hint" class="overlay collective-hint">
+    <span class="hint-arrow">↕</span>
+    <span class="hint-text">轻轻上滑，进入集体潮汐</span>
+  </div>
+
+  <!-- Spectrum Explorer -->
+  <div id="spectrum-explorer" class="overlay spectrum-layer hidden">
+    <div class="spectrum-content"></div>
+  </div>
+
+  <!-- Collective Tide Layer -->
+  <div id="collective-layer" class="overlay collective-layer hidden">
+    <div class="collective-content">
+      <button class="collective-close">&times;</button>
+      <p class="collective-title">你已留下</p>
+      <p class="collective-count-line">
+        <span class="collective-count">0</span>
+        <span class="collective-unit">笔颜色</span>
+      </p>
+      <p class="collective-subtitle">标记今天的颜色，成为潮汐的一部分</p>
+      <div class="collective-stories">
+        <p class="collective-story-hint">她们的故事，像漂流瓶一样浮上来……</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cycle Setup -->
+  <div id="cycle-setup" class="overlay hidden">
+    <div class="setup-card">
+      <p class="setup-title">你的上一次月经是什么时候开始的？</p>
+      <p class="setup-sub">这将帮助我们为你生成个人潮汐色谱</p>
+      <input type="date" id="setup-date" class="setup-date">
+      <div class="setup-length">
+        <label class="setup-length-label">周期长度：<span id="setup-length-val">28</span> 天</label>
+        <input type="range" id="setup-length" class="setup-range" min="21" max="35" value="28">
+      </div>
+      <div class="setup-actions">
+        <button id="setup-confirm" class="setup-btn primary">开始我的潮汐</button>
+        <button id="setup-skip" class="setup-btn secondary">暂时跳过</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Start Overlay -->
+  <div id="start-overlay" class="overlay">
+    <div class="start-content">
+      <div class="start-moon"></div>
+      <p class="start-text">点击任意处，开启潮声</p>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
