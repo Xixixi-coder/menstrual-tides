@@ -111,9 +111,9 @@ export class NarrativeEngine {
 
     this.card.classList.remove('visible', 'float-up');
 
-    // Hide phase-body to prevent overlap on mobile
+    // Hide phase-desc to prevent overlap on mobile
     const phaseDesc = document.getElementById('phase-description');
-    if (phaseDesc) phaseDesc.style.opacity = '0';
+    if (phaseDesc) phaseDesc.classList.add('narrative-active');
 
     setTimeout(() => {
       this.textEl.textContent = story.text;

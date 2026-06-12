@@ -158,10 +158,10 @@ canvas {
 /* ─── Phase Description ─── */
 
 .phase-desc {
-  bottom: 120px; left: 24px;
+  bottom: 140px; left: 24px;
   transform: translateY(30px);
   text-align: left;
-  width: min(70vw, 320px);
+  width: min(60vw, 280px);
   max-height: 25vh;
   overflow: hidden;
   opacity: 0;
@@ -215,7 +215,7 @@ canvas {
 /* ─── Narrative Card ─── */
 
 #narrative-card {
-  top: 50%; left: 50%;
+  top: 38%; left: 50%;
   transform: translate(-50%, -50%);
   width: min(82vw, 380px);
   padding: 24px 20px;
@@ -229,6 +229,13 @@ canvas {
   transition: opacity 1s var(--ease-calm);
   cursor: pointer;
   z-index: 20;
+}
+
+/* When narrative card is visible, phase-desc hides (toggled via JS) */
+.phase-desc.narrative-active {
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease-calm);
 }
 
 #narrative-card.visible { opacity: 1; }
@@ -352,7 +359,7 @@ canvas {
   padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px));
   transform: translateY(100%);
   transition: transform 500ms var(--ease-calm);
-  z-index: 20;
+  z-index: 10000;
 }
 
 #mark-popup.visible { transform: translateY(0); }
@@ -422,6 +429,8 @@ canvas {
   outline: none;
   transition: border-color 300ms var(--ease-calm);
   font-weight: 300;
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 .mark-input:focus { border-color: rgba(255, 0, 127, 0.3); }
@@ -976,6 +985,7 @@ canvas {
   opacity: 0;
   animation: fadeInSimple 1s var(--ease-calm) 3.5s forwards;
   cursor: pointer;
+  max-width: 50vw;
 }
 
 .hint-arrow {
