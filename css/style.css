@@ -161,8 +161,35 @@ canvas {
   transform: translateY(30px);
   text-align: left;
   width: min(70vw, 320px);
+  max-height: 25vh;
+  overflow: hidden;
   opacity: 0;
   transition: opacity 1s var(--ease-calm), transform 1s var(--ease-calm);
+}
+
+/* When narrative card is visible, shrink phase body poem to avoid overlap */
+#narrative-card.visible ~ #phase-description .phase-body,
+#narrative-card.float-up ~ #phase-description .phase-body {
+  font-size: 0.95rem;
+  max-height: 12vh;
+  overflow: hidden;
+}
+
+/* Mobile: move narrative card higher to avoid bottom content */
+@media (max-height: 800px) {
+  #narrative-card {
+    top: 42%;
+  }
+}
+@media (max-height: 680px) {
+  #narrative-card {
+    top: 38%;
+    padding: 20px 18px;
+  }
+  #narrative-card .narrative-text {
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
 }
 
 .phase-today {
@@ -201,6 +228,7 @@ canvas {
   opacity: 0;
   transition: opacity 1s var(--ease-calm);
   cursor: pointer;
+  z-index: 20;
 }
 
 #narrative-card.visible { opacity: 1; }

@@ -111,6 +111,10 @@ export class NarrativeEngine {
 
     this.card.classList.remove('visible', 'float-up');
 
+    // Hide phase-body to prevent overlap on mobile
+    const phaseDesc = document.getElementById('phase-description');
+    if (phaseDesc) phaseDesc.style.opacity = '0';
+
     setTimeout(() => {
       this.textEl.textContent = story.text;
       this.sourceEl.textContent = '— ' + story.source;
