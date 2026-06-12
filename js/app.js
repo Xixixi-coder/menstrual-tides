@@ -31,7 +31,7 @@ class App {
     this.setupAudio();
     this.setupStartOverlay();
 
-    const res = await fetch('data/narratives.json');
+    const res = await fetch('./data/narratives.json');
     const stories = await res.json();
     this.narratives = new NarrativeEngine(stories, this.moonPhase);
 
