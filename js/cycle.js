@@ -67,6 +67,19 @@ const PHASES = [
 ];
 
 const STORAGE_KEY = 'menstrual-tides-cycle';
+const COOKIE_KEY = 'mt_cycle';
+
+function setCookie(data) {
+  const encoded = encodeURIComponent(JSON.stringify(data));
+  const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
+  document.cookie = `${COOKIE_KEY}=${encoded};expires=${expires};path=/;SameSite=Lax`;
+}
+
+function getCookie() {
+  const match = document.cookie.match(new RegExp(`(?:^|; )${COOKIE_KEY}=([^;]*)`));
+  if (!match) return null;
+  try { return JSON.parse(decodeURIComponent(match[1])); } catch { return null; }
+}
 
 export function getPhase(cycleDay, cycleLength = 28) {
   const scaled = Math.round((cycleDay / cycleLength) * 28);
@@ -135,6 +148,7 @@ export function saveCycleStart(date) {
   data.lastPeriodStart = date.toISOString();
   data.cycleLength = data.cycleLength || 28;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  setCookie(data);
 }
 
 export function saveCycleLength(len) {
@@ -142,6 +156,7 @@ export function saveCycleLength(len) {
   const data = loadCycleData();
   data.cycleLength = clamped;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  setCookie(data);
 }
 
 export function getCalibrationSuggestion() {
@@ -156,10 +171,15 @@ export function getCalibrationSuggestion() {
 
 export function loadCycleData() {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-  } catch {
-    return {};
+    const local = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (local && local.lastPeriodStart) return local;
+  } catch {}
+  const cookie = getCookie();
+  if (cookie && cookie.lastPeriodStart) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cookie)); } catch {}
+    return cookie;
   }
+  return {};
 }
 
 export function getCycleDay() {
